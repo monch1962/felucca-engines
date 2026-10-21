@@ -64,6 +64,7 @@ typedef struct {
 } param_desc_t;
 
 /* ------------------------------------------------- voices, engines --- */
+#define VOICE_MCH_NONE 0xFFu    /* voice_t.mch: the voice was not started by a MIDI channel (keys/seq/arp) */
 typedef struct {
     uint8_t note, vel, gate, active;
     uint8_t stage;               /* env: 0 off, 1 attack, 2 decay/sustain, 3 release */
@@ -77,6 +78,7 @@ typedef struct {
     int32_t s[8];                /* engine state (filters, envs) */
     uint32_t age;
     uint8_t mvel;                /* mod.c: the note-on velocity (before UNISON scaling) and RAND of the note */
+    uint8_t mch;                 /* owning MIDI channel 0..15, VOICE_MCH_NONE: not MIDI-hosted (MPE, voice.c) */
     int16_t mrnd;
 } voice_t;
 
